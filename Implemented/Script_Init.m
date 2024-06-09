@@ -34,5 +34,43 @@ A  =  [0 0 1 0; 0 0 0 1; 0 aa -bb -cc; 0 dd -ee -ff];
 B = [0;0; mm; nn];
 C = eye(4); % Matriu identitat de 4x4
 D = zeros(4, 1); % Matriu de zeros de 4x1
+
+% Crear el sistema de espacio de estados en MATLAB
+sys = ss(A, B, C, D);
+
+
+%%% LQR
 Q = diag([1200 1500 0 0]);
 R  = 0.035;
+KK = lqr(A,B,Q,R);
+
+
+% separating verticles
+p = [1 0 0 0];
+o = [0 1 0 0];
+n = [0 0 1 0];
+q = [0 0 0 1];
+
+
+%%% KALMAN FILTER
+Vd = 0.001*eye(4); % disturbance covariance
+Vn = 0.001; % noise covariance
+
+% Build Kalman Filter
+%[L, P, E] = lqe(A,Vd,C,Vd,Vn); % design Kalman Filter
+Kf = (lqr(A',C',Vd,Vn))'; % or design using "LQR"
+
+sysKF = ss(A-Kf*C, [B Kf], eye(4),0*[B Kf]); % Kalman filter estimator
+
+
+
+% Diseñar filtro de Kalman
+%[kest, L, P] = kalman(ss(A, [B B], C, [D D]), Q_w, R_v);
+% Covarianzas del ruido del proceso y medición
+Q_w = 0.01 * eye(4);  % Suposición: ruido del proceso pequeño
+R_v = 0.01 * eye(4);  % Suposición: ruido de medición pequeño
+
+
+%%% LQG
+% Sistema LQG
+%sys_cl = lqg(ss(A, B, C, D), Q, R, Q_w, R_v);
