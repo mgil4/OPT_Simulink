@@ -61,16 +61,3 @@ Vn = 0.001; % noise covariance
 Kf = (lqr(A',C',Vd,Vn))'; % or design using "LQR"
 
 sysKF = ss(A-Kf*C, [B Kf], eye(4),0*[B Kf]); % Kalman filter estimator
-
-
-
-% Diseñar filtro de Kalman
-%[kest, L, P] = kalman(ss(A, [B B], C, [D D]), Q_w, R_v);
-% Covarianzas del ruido del proceso y medición
-Q_w = 0.01 * eye(4);  % Suposición: ruido del proceso pequeño
-R_v = 0.01 * eye(4);  % Suposición: ruido de medición pequeño
-
-
-%%% LQG
-% Sistema LQG
-%sys_cl = lqg(ss(A, B, C, D), Q, R, Q_w, R_v);
