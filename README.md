@@ -1,1 +1,5 @@
 # OPT_Simulink
+
+This work presents the development and implementation of a control system for an inverted pendulum, a classic and nonlinear system in the field of control engineering. The main objective is to achieve the stabilization of the pendulum in its vertical position using various control techniques. Initially, the dynamic model of the inverted pendulum is described, including the nomenclature and the equations of motion. Subsequently, the nonlinear model of the system is developed and then linearized to facilitate the application of linear control techniques.
+
+Different controllers have been implemented, including the PID controller, the Linear Quadratic Regulator (LQR), the Linear Quadratic Gaussian (LQG) regulator, and the Kalman filter, to achieve the stabilization and tracking of the pendulum. Each controller has been designed and tested through simulations in Matlab and Simulink, and then experimentally validated. The document concludes with a discussion of the obtained results.
